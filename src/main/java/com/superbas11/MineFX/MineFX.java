@@ -49,25 +49,29 @@ public class MineFX {
     	File configFile = new File(new File(configPath), Reference.MOD_ID+".cfg");
     	new File(configPath).mkdirs();
     	
-    	//download proxy
-    	//TODO
-    	if(!configFile.exists())
-    	{
-    		try {
-				Downloader.Download("http://www.inter.net/download", configPath);
-			} catch (IOException e) {
-				LogHelper.error("Error on downloading LightFX proxy from server!");
-				e.printStackTrace();
-			}
-    	}
-    	
     	//init config handler
     	ConfigurationHandler.init(configFile);
     	FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
     	
+    	LogHelper.debug(!new File("config/MineFX/"+ConfigurationHandler.Proxy_FileName).exists()?"file not found!":(ConfigurationHandler.forceUpdate?"Force update.":"files found."));
+    	
+    	//download proxy
+    	if(!new File("config/MineFX/"+ConfigurationHandler.Proxy_FileName).exists() || ConfigurationHandler.forceUpdate)
+    	{
+    		try {
+    			LogHelper.info("Downloading proxy files...");
+				Downloader.Download(Reference.proxy_exe_Download, configPath);
+				Downloader.Download(Reference.Proxy_dll_Download, configPath);
+				
+			} catch (IOException e) {
+				LogHelper.error("Error on downloading proxy files from server!");
+				e.printStackTrace();
+			}
+    	}    	
+    	
     	//start proxy
     	try {
-    		FXServer = Runtime.getRuntime().exec(ConfigurationHandler.Proxy_FileName, null, new File(configPath));
+    		FXServer = Runtime.getRuntime().exec("config/MineFX/"+ConfigurationHandler.Proxy_FileName, null, new File(configPath));
     	    in = FXServer.getInputStream();
     	    out = FXServer.getOutputStream();
     	    err = FXServer.getErrorStream();

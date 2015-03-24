@@ -15,6 +15,8 @@ public class ConfigurationHandler {
 	public static String Proxy_FileName;
 	public static String Proxy_IP;
 	public static int Proxy_port;
+	public static String Proxy_version;
+	public static Boolean forceUpdate;
 	
 	public static void init(File configFile)
 	{
@@ -41,6 +43,8 @@ public class ConfigurationHandler {
 		Proxy_FileName = configuration.getString("File name", "LightFX Proxy", "MineFX.exe", "File name of the LightFX proxy executible located in config/MineFX.");
 		Proxy_IP = configuration.getString("Proxy IP", "LightFX Proxy", "127.0.0.1", "");
 		Proxy_port = configuration.getInt("Proxy Port", "LightFX Proxy", 3000, 1, 65535, "");
+		forceUpdate =configuration.getBoolean("Force update proxy files", Configuration.CATEGORY_GENERAL, false, "force update proxy files.");
+		Proxy_version = configuration.getString("Proxy version", Configuration.CATEGORY_GENERAL, "0", "Don't change this! unless you know what your doing.");
 
         if (configuration.hasChanged())
         {
