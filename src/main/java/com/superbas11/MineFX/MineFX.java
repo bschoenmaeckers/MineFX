@@ -40,6 +40,8 @@ public class MineFX {
     protected InputStream err;
     protected Thread Logger;
     private String configPath = "config/";
+
+	private Thread ErrorLogger;
 	
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -98,10 +100,33 @@ public class MineFX {
     	    	}
     	    };
     	    
+    	    ErrorLogger = new Thread("MineFX ErrorLog Thread") {
+    	    	public void run(){
+    	    		LogHelper.info("starting Error Logger");
+    	    		
+	    			try {
+	    				
+	    				// Read console stream
+	    	            final BufferedReader reader = new BufferedReader(new InputStreamReader(err));
+	    	            
+	    	            String line = null;
+	    	            while ((line = reader.readLine()) != null) {
+	    	                LogHelper.error(line);
+	    	            }
+	    	            reader.close();
+	    	            
+	    	            
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+    	    	}
+    	    };
+    	    
     	    //start Logger
     	    if(ConfigurationHandler.DebugLog){
     	    	Logger.start();
     	    }
+    	    ErrorLogger.start();
     	    
     		} catch (IOException e) {
 			e.printStackTrace();
