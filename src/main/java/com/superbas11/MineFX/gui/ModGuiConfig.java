@@ -1,5 +1,6 @@
 package com.superbas11.MineFX.gui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.superbas11.MineFX.ConfigurationHandler;
@@ -18,12 +19,22 @@ public class ModGuiConfig extends GuiConfig{
 	{
 		super(
 				guiscreen,
-				new ConfigElement(ConfigurationHandler.configuration.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements(),
+				getConfigElements(),
 				Reference.MOD_ID,
 				false,
 				true,
 				GuiConfig.getAbridgedConfigPath(ConfigurationHandler.configuration.toString())
 			);
+	}
+	
+	private static List getConfigElements()
+	{
+		List configElements = new ArrayList();
+		
+		configElements.addAll(new ConfigElement(ConfigurationHandler.configuration.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements());
+		configElements.addAll(new ConfigElement(ConfigurationHandler.configuration.getCategory("lightfx proxy")).getChildElements());
+		
+		return configElements;
 	}
 	
 }
