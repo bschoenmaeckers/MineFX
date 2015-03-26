@@ -40,11 +40,11 @@ public class ConfigurationHandler {
 	private static void loadConfiguration()
 	{
 		DebugLog = configuration.getBoolean("Debug log", Configuration.CATEGORY_GENERAL, false, "show debug info/light events in console.");
-		Proxy_FileName = configuration.getString("File name", "LightFX Proxy", "MineFX.exe", "File name of the LightFX proxy executible located in config/MineFX.");
+		Proxy_FileName = configuration.getString("File name", "LightFX Proxy", "MineFX.exe", "File name of the LightFX proxy executable, located in config/MineFX.");
 		Proxy_IP = configuration.getString("Proxy IP", "LightFX Proxy", "127.0.0.1", "");
 		Proxy_port = configuration.getInt("Proxy Port", "LightFX Proxy", 3000, 1, 65535, "");
 		forceUpdate =configuration.getBoolean("Force update proxy files", Configuration.CATEGORY_GENERAL, false, "force update proxy files.");
-		Proxy_version = configuration.getString("Proxy version", Configuration.CATEGORY_GENERAL, "0", "Don't change this! unless you know what your doing.");
+		Proxy_version = configuration.getString("Proxy version", Configuration.CATEGORY_GENERAL, "1.0", "Don't change this! unless you know what your doing.");
 
         if (configuration.hasChanged())
         {

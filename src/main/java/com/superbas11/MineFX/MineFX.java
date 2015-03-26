@@ -89,7 +89,7 @@ public class MineFX {
     	    	            
     	    	            String line = null;
     	    	            while ((line = reader.readLine()) != null) {
-    	    	                System.out.println(line);
+    	    	                LogHelper.info(line);
     	    	            }
     	    	            reader.close();
     	    	            
