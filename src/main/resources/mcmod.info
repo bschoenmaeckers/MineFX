@@ -5,7 +5,7 @@
   "description": "Adds Alienware LightFX support for minecraft.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "http://minecraft.curseforge.com/mc-mods/228870-minefx/",
   "updateUrl": "",
   "authorList": ["superbas11"],
   "credits": "Alienware for their easy to use API and pahimar for the best mod tutorial on the internet!",
