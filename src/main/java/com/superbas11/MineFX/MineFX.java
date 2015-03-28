@@ -11,6 +11,11 @@ import java.net.Socket;
 
 import org.apache.commons.io.IOUtils;
 
+import com.superbas11.MineFX.EventHandlers.ClientConnectToServerEventHandler;
+import com.superbas11.MineFX.EventHandlers.ClientDisconnectToServerEventHandler;
+import com.superbas11.MineFX.EventHandlers.PlayerHealEventHandler;
+import com.superbas11.MineFX.EventHandlers.PlayerHurtEventHandler;
+import com.superbas11.MineFX.UpdateChecker.UpdateHandler;
 import com.superbas11.MineFX.reference.Reference;
 import com.superbas11.MineFX.util.Downloader;
 import com.superbas11.MineFX.util.LogHelper;
@@ -137,18 +142,22 @@ public class MineFX {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
     	
+    	UpdateHandler.init();
+    	
     	//connect to proxy
-    	ConnectToServer Connection = new ConnectToServer(ConfigurationHandler.Proxy_IP, ConfigurationHandler.Proxy_port);
+    	ServerConnectionHandler Connection = new ServerConnectionHandler(ConfigurationHandler.Proxy_IP, ConfigurationHandler.Proxy_port);
     	Connection.Connect();    	       
     	
     	//register events
     	MinecraftForge.EVENT_BUS.register(new PlayerHurtEventHandler());
     	MinecraftForge.EVENT_BUS.register(new PlayerHealEventHandler());
+    	FMLCommonHandler.instance().bus().register(new ClientConnectToServerEventHandler());
+    	FMLCommonHandler.instance().bus().register(new ClientDisconnectToServerEventHandler());
     	
     	//close connection when minecraft closes
-        Runtime.getRuntime().addShutdownHook(new Thread() {
+        Runtime.getRuntime().addShutdownHook(new Thread("MineFX shutdown hook") {
             public void run() {
-                System.out.println("Closing MineFX connection...");
+                LogHelper.info("Closing MineFX connection...");
                 try {
 					MineFX.instance.Connection.close();
 				} catch (IOException e) {

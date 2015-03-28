@@ -1,4 +1,7 @@
-package com.superbas11.MineFX;
+package com.superbas11.MineFX.EventHandlers;
+
+import com.superbas11.MineFX.ServerConnectionHandler;
+import com.superbas11.MineFX.util.LogHelper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +15,10 @@ public class PlayerHealEventHandler {
 		if(event.entityLiving instanceof EntityPlayer){
 			EntityPlayer Player = (EntityPlayer) event.entityLiving;
 			if(Player.getDisplayNameString()==Minecraft.getMinecraft().thePlayer.getDisplayNameString()){
-				//System.out.println("Player got healed");
+				
+            	if (Minecraft.getMinecraft().thePlayer != null) {
+            		ServerConnectionHandler.send();
+				}
 			}
 		}
 	}
