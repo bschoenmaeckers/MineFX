@@ -2,13 +2,13 @@
 {
   "modid": "MineFX",
   "name": "MineFX",
-  "description": "",
+  "description": "Adds Alienware LightFX support for minecraft.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["superbas11"],
-  "credits": "The Forge and FML guys, for making this example",
+  "credits": "Alienware for their easy to use API and pahimar for the best mod tutorial on the internet!",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
